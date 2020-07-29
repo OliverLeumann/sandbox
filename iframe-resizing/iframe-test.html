@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Does SameSite=none on cookies effect Iframe Integrations?</title>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="jquery.js"></script>
+		<script type="text/javascript" src="jquery-migrate.js"></script>
+		<script type="text/javascript" src="jquery.browser.js"></script>
+		<script type="text/javascript" src="jquery.ba-postmessage.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				var if_height, src = 'https://recruitingapp-1000.develop.umantis.com/Jobs',
+				iframe = $( '<iframe src="' + src + '" name="' + document.location.href + '" width="980"  height="500" frameborder="0" scrolling="no"><\/iframe>' ).appendTo( '#umantis_iframe' );
+				$.receiveMessage(function(e){
+					console.log("e = ", e);
+					var h = Number( e.data.replace( /.*if_height=(?:\d+(?:\.\d*)?|\.\d+)(?:&|$)/, '$1' ) );
+					console.log("h = ", h);
+
+					if (!isNaN( h ) && h > 0 && h !== if_height) {
+						console.log("aaaaa");
+						/* Height has changed, update the iframe */
+						
+						if_height = h;
+						iframe.height(h);
+					}
+				} );
+			});
+		</script>
+	</head>
+	<body>
+		<div id="umantis_iframe"></div>
+	</body>
+</html>
