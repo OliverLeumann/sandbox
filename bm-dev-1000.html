@@ -15,7 +15,7 @@
 		// Edge as well as chrome have safari in the user agent so also handle this properly
 		var is_safari = ( navigator.userAgent.indexOf("Safari") > -1 && !is_edge && !is_chrome );
 		
-		if (is_safari || is_edge) {
+		if (is_safari) {
 			// See if cookie exists (https://stackoverflow.com/a/25617724/1502448)
 			if (!document.cookie.match(/^(.*;)?\s*recruitingapp_cookies\s*=\s*[^;]+(.*)?$/)) {
 				document.cookie = 'recruitingapp_cookies=enabled; path=/';
