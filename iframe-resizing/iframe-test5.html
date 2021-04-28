@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Does iframe resizing still work?</title>
+		<meta charset="UTF-8">
+		<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+				integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+				crossorigin="anonymous"></script>
+		</script>
+		<script type="text/javascript" src="jquery.ba-postmessage.js"></script>
+		<script>
+			$(document).ready(function() {
+				var if_height, src = 'https://recruitingapp-1000.develop.umantis.com/Jobs',
+				iframe = $( '<iframe src="' + src + '" name="' + document.location.href + '" width="980"  height="500" frameborder="0" scrolling="no"><\/iframe>' ).appendTo( '#umantis_iframe' );
+				
+				$.receiveMessage(function(e){
+					var h = Number(e.data.replace(/[^0-9\.]+/g,""));
+
+					if (!isNaN( h ) && h > 0 && h !== if_height) {
+						console.log("Iframe height has changed to => ", h);
+						/* Height has changed, update the iframe */
+						if_height = h;
+						iframe.height(h);
+					}
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div id="umantis_iframe"></div>
+	</body>
+</html>
